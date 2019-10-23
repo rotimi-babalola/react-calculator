@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../scss/calculator-grid.scss';
 
 function CalculatorGrid() {
+  const numbers = [...Array(10).keys()];
+  const [number, setNumber] = useState('');
+
+  const handleClick = el => {
+    const str = `${number}${el}`;
+    setNumber(Number(str));
+  };
+
   return (
     <div className="c-calculator">
-      <input type="number" name="calculator-input" id="input" />
+      <input
+        type="number"
+        name="calculator-input"
+        id="input"
+        value={number || 0}
+        onChange={evt => setNumber(evt.target.value)}
+      />
       <div className="c-calculator__button-grid">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>0</button>
+        {numbers.map(el => (
+          <button key={el} onClick={() => handleClick(el)}>
+            {el}
+          </button>
+        ))}
+        <button>+</button>
+        <button>-</button>
       </div>
     </div>
   );
