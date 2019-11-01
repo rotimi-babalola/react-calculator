@@ -6,6 +6,7 @@ import '../scss/calculator-grid.scss';
 function CalculatorGrid() {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const [inputValue, setInputValue] = useState('');
+  const [result, setResult] = useState(0);
 
   const handleClick = el => {
     const str = `${inputValue}${el}`;
@@ -15,7 +16,7 @@ function CalculatorGrid() {
   const getResult = () => {
     try {
       const result = evaluate(inputValue);
-      setInputValue(result);
+      setResult(result);
     } catch (error) {
       console.log(error);
       alert('Invalid input');
@@ -31,6 +32,7 @@ function CalculatorGrid() {
         value={inputValue || 0}
         onChange={evt => setInputValue(evt.target.value)}
       />
+      <p>{result}</p>
       <div className="c-calculator__button-grid">
         {numbers.map(el => (
           <button key={el} onClick={() => handleClick(el)}>
